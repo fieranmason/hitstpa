@@ -2,17 +2,16 @@ package hitstpa.dao;
 
 import java.util.List;
 
-//import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
+
+import com.leverage.util.NotFoundException;
+import com.leverage.util.ReferentialIntegrityException;
 
 public  class AbstractDao<T> implements IDao<T>{
 
@@ -41,32 +40,19 @@ public  class AbstractDao<T> implements IDao<T>{
 	}
 
 	@Override
-	public T get(int id) throws Exception {
+	public T get(int id) throws NotFoundException, ReferentialIntegrityException{
 		List<T> list = jdbcTemplate.query(get, new Object[] {id}, rowMapper);
 		
 		if(list.size() > 1) {
-			throw new Exception("Referential Integrity Violation in Table: " + this.modelClass.getSimpleName().toLowerCase());
+			throw new ReferentialIntegrityException("Non-unique result found: " + this.modelClass.getSimpleName().toLowerCase());
 		}
 		else if(list.isEmpty()) {
-			throw new Exception(this.modelClass.getSimpleName().toLowerCase() + " " + id + " not found" );
+			throw new NotFoundException(this.modelClass.getSimpleName().toLowerCase() + " " + id + " not found" );
 		}
 		
 		return list.get(0);
 	}
 
-	@Override
-	public T getByCode(int code) throws Exception {
-		List<T> list = jdbcTemplate.query(getByCode, new Object[] {code}, rowMapper);
-		
-		if(list.size() > 1) {
-			throw new Exception("Referential Integrity Violation in Table: " + this.modelClass.getSimpleName().toLowerCase());
-		}
-		else if(list.isEmpty()) {
-			throw new Exception(this.modelClass.getSimpleName().toLowerCase() + " " + code + " not found" );
-		}
-		
-		return list.get(0);
-	}
 	@Override
 	public List<T> list() {
 		return jdbcTemplate.query(list, rowMapper);

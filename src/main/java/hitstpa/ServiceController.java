@@ -24,12 +24,6 @@ public class ServiceController implements IServiceService<Service>{
     	Service service = serviceDao.get(id);
     	return service;
     }
-    @Override
-	@RequestMapping(value="/service/byCode/{code}", method = RequestMethod.GET)
-    public Service getByCode(@PathVariable(value="code") Integer id) throws Exception{    	
-    	Service service = serviceDao.getByCode(id);
-    	return service;
-    }
 	
     @Override
 	@RequestMapping(value="/service", method = RequestMethod.GET)
