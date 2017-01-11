@@ -6,10 +6,10 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.leverage.util.InternalServerException;
 import com.leverage.util.NotFoundException;
 import com.leverage.util.ReferentialIntegrityException;
 
@@ -20,29 +20,27 @@ public  class AbstractDao<T> implements IDao<T>{
 	protected String list = "SELECT * FROM ";
 	protected String get1 = "SELECT * FROM ";
 	protected String get2 = " WHERE id=?";
-	protected String get3 = " WHERE code=?";
 	protected String get;
-	protected String getByCode;
 	protected RowMapper<T> rowMapper;
 	
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
-    
-    @Value("${spring.datasource.username}")
-	private String DB_USERNAME;
-	
+
 	protected AbstractDao(Class<T> modelClass, DataSource dataSource) {
 		this.modelClass = modelClass;
 		String table = this.modelClass.getSimpleName().toLowerCase();
 		list = list.concat(table);
 		get = get1.concat(table).concat(get2);
-		getByCode = get1.concat(table).concat(get3);
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Override
-	public T get(int id) throws NotFoundException, ReferentialIntegrityException{
+	public T get(int id) throws NotFoundException, ReferentialIntegrityException, InternalServerException{
 		List<T> list = jdbcTemplate.query(get, new Object[] {id}, rowMapper);
 		
+		if(list.contains(null))
+		{
+			throw new InternalServerException("Database fault");
+		}
 		if(list.size() > 1) {
 			throw new ReferentialIntegrityException("Non-unique result found: " + this.modelClass.getSimpleName().toLowerCase());
 		}
@@ -54,7 +52,12 @@ public  class AbstractDao<T> implements IDao<T>{
 	}
 
 	@Override
-	public List<T> list() {
-		return jdbcTemplate.query(list, rowMapper);
+	public List<T> list() throws InternalServerException{
+		List<T> entities = jdbcTemplate.query(list, rowMapper);
+		if(entities.contains(null))
+		{
+			throw new InternalServerException();
+		}
+		return entities;
 	}
 }

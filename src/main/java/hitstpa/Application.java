@@ -1,18 +1,18 @@
 package hitstpa;
 
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer{
 	
-	protected static Logger logger = LoggerFactory.getLogger(Application.class);
+	protected static Logger logger = Logger.getLogger(Application.class);
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
