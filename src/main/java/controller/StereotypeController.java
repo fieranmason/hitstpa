@@ -15,9 +15,7 @@ import com.leverage.util.NotFoundException;
 import com.leverage.util.ReferentialIntegrityException;
 
 import hitstpa.Application;
-import hitstpa.dao.EntityDao;
 import hitstpa.dao.StereotypeDao;
-import hitstpa.model.Entity;
 import hitstpa.model.Stereotype;
 
 @RestController
