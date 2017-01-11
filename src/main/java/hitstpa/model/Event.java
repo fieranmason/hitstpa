@@ -8,6 +8,8 @@ public class Event {
 	private String name;
 	private String description;
 	
+	private Event(){}
+	
 	public Event(Integer id, Interaction interaction, String name, String description)
 	{
 		this.id = id;
