@@ -29,7 +29,7 @@ public class IncidentXSafetyConstraintDao extends AbstractDao <IncidentXSafetyCo
 				IncidentXSafetyConstraint incidentXSafetyConstraint;
 				
 				Integer id;
-				Incident incident; 
+				Incident incident;
 				SafetyConstraint safetyConstraint;
 				
 				try

@@ -39,19 +39,16 @@ public class EntityDao extends AbstractDao<Entity>{
 	        	}
 	        	catch(ReferentialIntegrityException rie)
 	        	{
-	        		stereotype = null;
 	        		logger.error("Database fault", rie);
 	        		entity = null;
 	        	}
 	        	catch(NotFoundException nfe)
 	        	{
-	        		stereotype = null;
 	        		logger.error("Database fault", nfe);
 	        		entity = null;
 	        	}
 	            catch(InternalServerException ise)
 	        	{
-	            	stereotype = null;
 	            	logger.error("Database fault", ise);
 	            	entity = null;
 	        	}
