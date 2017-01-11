@@ -11,8 +11,6 @@ import com.leverage.util.InternalServerException;
 import com.leverage.util.NotFoundException;
 import com.leverage.util.ReferentialIntegrityException;
 
-import hitstpa.model.Entity;
-import hitstpa.model.EntitySafetyConstraint;
 import hitstpa.model.Event;
 import hitstpa.model.EventSafetyConstraint;
 
