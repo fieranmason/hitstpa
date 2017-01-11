@@ -1,4 +1,4 @@
-package hitstpa;
+package controller;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import com.leverage.util.InternalServerException;
 import com.leverage.util.NotFoundException;
 import com.leverage.util.ReferentialIntegrityException;
 
+import hitstpa.Application;
 import hitstpa.dao.EntityDao;
 import hitstpa.model.Entity;
 
