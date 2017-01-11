@@ -16,24 +16,26 @@ import com.leverage.util.ReferentialIntegrityException;
 
 import hitstpa.Application;
 import hitstpa.dao.EntityDao;
+import hitstpa.dao.StereotypeDao;
 import hitstpa.model.Entity;
+import hitstpa.model.Stereotype;
 
 @RestController
-public class EntityController implements IResource<Entity>{
+public class StereotypeController implements IResource<Stereotype>{
 	
 	protected static Logger logger = Logger.getLogger(Application.class);
 	
 	@Autowired
-	protected EntityDao entityDao;
+	protected StereotypeDao stereotypeDao;
 	
     @RequestMapping(value="/subset/{id}", method = RequestMethod.GET)
-    public Entity get(@PathVariable(value="id") Integer id) throws NotFoundException, InternalServerException{
+    public Stereotype get(@PathVariable(value="id") Integer id) throws NotFoundException, InternalServerException{
     	
-    	Entity entity;
+    	Stereotype stereotype;
     	
     	try
     	{
-    		entity = entityDao.get(id);
+    		stereotype = stereotypeDao.get(id);
     	}
     	catch(ReferentialIntegrityException rie)
     	{
@@ -41,13 +43,13 @@ public class EntityController implements IResource<Entity>{
     		throw new InternalServerException("Database fault");
     	}
     	
-    	return entity;
+    	return stereotype;
     }
     
     @RequestMapping(value="/subset", method = RequestMethod.GET)
-    public List<Entity> list() throws InternalServerException{
-    	List<Entity> entities = entityDao.list();
-    	return entities;
+    public List<Stereotype> list() throws InternalServerException{
+    	List<Stereotype> stereotypes = stereotypeDao.list();
+    	return stereotypes;
     }
 
 }
