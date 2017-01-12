@@ -1,6 +1,7 @@
 package hitstpa.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Incident {
 
@@ -11,10 +12,17 @@ public class Incident {
 	private Date startTime;
 	private Date endTime;
 	private String vendorProductModel;
+	private List<Narrative> narratives;
 	
 	public Incident(){}
 	
-	public Incident(Integer id, String name, String description, String outcome, Date startTime, Date endTime, String vendorProductModel)
+	public Incident(Integer id, 
+					String name, 
+					String description, 
+					String outcome, 
+					Date startTime, 
+					Date endTime, 
+					String vendorProductModel)
 	{
 		this.id = id;
 		this.name = name;
@@ -80,6 +88,12 @@ public class Incident {
 	public void setVendorProductModel(String vendorProductModel) {
 		this.vendorProductModel = vendorProductModel;
 	}
-	
-	
+
+	public List<Narrative> getNarratives() {
+		return narratives;
+	}
+
+	public void setNarratives(List<Narrative> narratives) {
+		this.narratives = narratives;
+	}
 }

@@ -56,7 +56,7 @@ public  class AbstractDao<T> implements IDao<T>{
 		List<T> entities = jdbcTemplate.query(list, rowMapper);
 		if(entities.contains(null))
 		{
-			throw new InternalServerException();
+			throw new InternalServerException("unreferenced element or child");
 		}
 		return entities;
 	}
