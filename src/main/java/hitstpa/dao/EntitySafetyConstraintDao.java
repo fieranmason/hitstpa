@@ -14,7 +14,7 @@ import com.leverage.util.ReferentialIntegrityException;
 import hitstpa.model.Entity;
 import hitstpa.model.EntitySafetyConstraint;
 
-public class EntitySafetyConstraintDao extends AbstractDao <EntitySafetyConstraint>{
+public class EntitySafetyConstraintDao extends GenericDao <EntitySafetyConstraint>{
 
 	protected EntitySafetyConstraintDao(DataSource dataSource) {
 		super(EntitySafetyConstraint.class, dataSource);

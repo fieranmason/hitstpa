@@ -14,9 +14,10 @@ import com.leverage.util.InternalServerException;
 
 import hitstpa.model.Incident;
 import hitstpa.model.Narrative;
+import hitstpa.model.SafetyConstraint;
 
 @Repository
-public class IncidentDao extends AbstractDao<Incident>{
+public class IncidentDao extends GenericDao<Incident>{
 	
 	public IncidentDao(DataSource dataSource) {
 		
@@ -35,6 +36,7 @@ public class IncidentDao extends AbstractDao<Incident>{
 	        	Date endTime;
 	        	String vendorProductModel;
 	        	List<Narrative> narratives;
+	        	List<SafetyConstraint> safetyConstraints;
 
         		id = rs.getInt("id");
         		name = rs.getString("name");
@@ -44,13 +46,15 @@ public class IncidentDao extends AbstractDao<Incident>{
 	        	endTime = rs.getDate("endTime");
 	        	vendorProductModel = rs.getString("vendorProductModel");
 	        	incident = new Incident(id, name, description, outcome, startTime, endTime, vendorProductModel);
+	        	
 	        	try {
-					narratives = new NarrativeDao(dataSource, incident).list();
+					narratives = new NarrativeDao(dataSource, incident).filterList("incident", incident.getId());
 					incident.setNarratives(narratives);
 				} catch (InternalServerException ise) {
 					logger.error("Database fault", ise);
 					incident = null;
 				}
+	        	
 	            return incident;
 	        }
 		};

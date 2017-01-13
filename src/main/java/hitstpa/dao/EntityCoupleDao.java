@@ -14,7 +14,7 @@ import com.leverage.util.ReferentialIntegrityException;
 import hitstpa.model.Entity;
 import hitstpa.model.EntityCouple;
 
-public class EntityCoupleDao extends AbstractDao <EntityCouple>{
+public class EntityCoupleDao extends GenericDao <EntityCouple>{
 
 	protected EntityCoupleDao(DataSource dataSource) {
 		super(EntityCouple.class, dataSource);

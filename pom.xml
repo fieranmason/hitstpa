@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework</groupId>
-    <artifactId>CPTService</artifactId>
+    <artifactId>HITSTPA</artifactId>
     <packaging>war</packaging>
     <version>0.1.0</version>
 	
@@ -81,10 +81,6 @@
         
         <!-- Logging -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
@@ -95,7 +91,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+		</dependency>
     </dependencies>
 
     <properties>
@@ -107,7 +106,7 @@
         <hibernate.version>5.2.2.Final</hibernate.version>
         <spring.version>4.3.2.RELEASE</spring.version>
         <springboot.version>1.4.1.RELEASE</springboot.version>
-        <start-class>CPTService.Application</start-class>
+        <start-class>hitstpa.Application</start-class>
     </properties>
 
     <build>

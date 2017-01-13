@@ -15,7 +15,7 @@ import hitstpa.model.Entity;
 import hitstpa.model.EntityCouple;
 import hitstpa.model.IndividualAction;
 
-public class IndividualActionDao extends AbstractDao <IndividualAction>{
+public class IndividualActionDao extends GenericDao <IndividualAction>{
 
 	protected IndividualActionDao(DataSource dataSource) {
 		super(IndividualAction.class, dataSource);

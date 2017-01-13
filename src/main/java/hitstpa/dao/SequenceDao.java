@@ -17,7 +17,7 @@ import hitstpa.model.EventSafetyConstraint;
 import hitstpa.model.Interaction;
 import hitstpa.model.Sequence;
 
-public class SequenceDao extends AbstractDao <Sequence>{
+public class SequenceDao extends GenericDao <Sequence>{
 
 	protected SequenceDao(DataSource dataSource) {
 		super(Sequence.class, dataSource);

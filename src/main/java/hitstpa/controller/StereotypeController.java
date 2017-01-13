@@ -1,4 +1,4 @@
-package controller;
+package hitstpa.controller;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class StereotypeController implements IResource<Stereotype>{
 	@Autowired
 	protected StereotypeDao stereotypeDao;
 	
-    @RequestMapping(value="/subset/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/stereotype/{id}", method = RequestMethod.GET)
     public Stereotype get(@PathVariable(value="id") Integer id) throws NotFoundException, InternalServerException{
     	
     	Stereotype stereotype;
@@ -44,7 +44,7 @@ public class StereotypeController implements IResource<Stereotype>{
     	return stereotype;
     }
     
-    @RequestMapping(value="/subset", method = RequestMethod.GET)
+    @RequestMapping(value="/stereotype", method = RequestMethod.GET)
     public List<Stereotype> list() throws InternalServerException{
     	List<Stereotype> stereotypes = stereotypeDao.list();
     	return stereotypes;

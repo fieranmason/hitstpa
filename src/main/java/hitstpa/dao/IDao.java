@@ -11,4 +11,6 @@ public interface IDao<T> {
 	public T get(int id) throws NotFoundException, ReferentialIntegrityException, InternalServerException;
 	
 	public List<T> list() throws InternalServerException;
+	
+	public List<T> filterList(String column, Integer id) throws InternalServerException;
 }

@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,28 +12,34 @@ import com.leverage.util.InternalServerException;
 import com.leverage.util.NotFoundException;
 import com.leverage.util.ReferentialIntegrityException;
 
-public  class AbstractDao<T> implements IDao<T>{
+public  class GenericDao<T> implements IDao<T>{
 
 	protected Class<T> modelClass;
 	protected JdbcTemplate jdbcTemplate;
 	protected String list = "SELECT * FROM ";
 	protected String get1 = "SELECT * FROM ";
 	protected String get2 = " WHERE id=?";
+	protected String filter;
 	protected String get;
 	protected RowMapper<T> rowMapper;
 	
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected Logger logger = Logger.getLogger(this.getClass());
 
-	protected AbstractDao(Class<T> modelClass, DataSource dataSource) {
+    public GenericDao(){};
+    
+	protected GenericDao(Class<T> modelClass, DataSource dataSource){
 		this.modelClass = modelClass;
-		String table = this.modelClass.getSimpleName().toLowerCase();
+		String table = this.modelClass.getSimpleName();
 		list = list.concat(table);
 		get = get1.concat(table).concat(get2);
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Override
-	public T get(int id) throws NotFoundException, ReferentialIntegrityException, InternalServerException{
+	public T get(int id) throws NotFoundException, 
+								ReferentialIntegrityException, 
+								InternalServerException{
+		
 		List<T> list = jdbcTemplate.query(get, new Object[] {id}, rowMapper);
 		
 		if(list.contains(null))
@@ -53,11 +58,20 @@ public  class AbstractDao<T> implements IDao<T>{
 
 	@Override
 	public List<T> list() throws InternalServerException{
-		List<T> entities = jdbcTemplate.query(list, rowMapper);
+		return checkForNullEntities(jdbcTemplate.query(list, rowMapper));
+	}
+	
+	public List<T> filterList(String column, Integer id) throws InternalServerException{
+		return checkForNullEntities(jdbcTemplate.query(filter, new Object[] {id}, rowMapper));
+	}
+	
+	protected List<T> checkForNullEntities(List<T> entities) throws InternalServerException
+	{
 		if(entities.contains(null))
 		{
 			throw new InternalServerException("unreferenced element or child");
 		}
+		
 		return entities;
 	}
 }

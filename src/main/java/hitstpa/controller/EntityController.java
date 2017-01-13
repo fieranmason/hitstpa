@@ -1,4 +1,4 @@
-package controller;
+package hitstpa.controller;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class EntityController implements IResource<Entity>{
 	@Autowired
 	protected EntityDao entityDao;
 	
-    @RequestMapping(value="/subset/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/entity/{id}", method = RequestMethod.GET)
     public Entity get(@PathVariable(value="id") Integer id) throws NotFoundException, InternalServerException{
     	
     	Entity entity;
@@ -44,7 +44,7 @@ public class EntityController implements IResource<Entity>{
     	return entity;
     }
     
-    @RequestMapping(value="/subset", method = RequestMethod.GET)
+    @RequestMapping(value="/entity", method = RequestMethod.GET)
     public List<Entity> list() throws InternalServerException{
     	List<Entity> entities = entityDao.list();
     	return entities;

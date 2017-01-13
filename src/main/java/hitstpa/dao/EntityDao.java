@@ -16,7 +16,7 @@ import hitstpa.model.Entity;
 import hitstpa.model.Stereotype;
 
 @Repository
-public class EntityDao extends AbstractDao<Entity>{
+public class EntityDao extends GenericDao<Entity>{
 	
 	public EntityDao(DataSource dataSource) {
 		

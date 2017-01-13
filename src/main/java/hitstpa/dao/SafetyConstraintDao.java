@@ -15,7 +15,7 @@ import hitstpa.model.EntitySafetyConstraint;
 import hitstpa.model.EventSafetyConstraint;
 import hitstpa.model.SafetyConstraint;
 
-public class SafetyConstraintDao extends AbstractDao <SafetyConstraint>{
+public class SafetyConstraintDao extends GenericDao <SafetyConstraint>{
 
 	protected SafetyConstraintDao(DataSource dataSource) {
 		super(SafetyConstraint.class, dataSource);

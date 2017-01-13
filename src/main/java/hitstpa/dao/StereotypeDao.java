@@ -12,7 +12,7 @@ import hitstpa.model.Stereotype;
 
 
 @Repository
-public class StereotypeDao extends AbstractDao<Stereotype>{
+public class StereotypeDao extends GenericDao<Stereotype>{
 	
 	public StereotypeDao(DataSource dataSource) {
 		

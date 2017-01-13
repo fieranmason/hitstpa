@@ -16,62 +16,30 @@ import hitstpa.model.Incident;
 import hitstpa.model.Narrative;
 
 @Repository
-public class NarrativeDao extends AbstractDao<Narrative>{
+public class NarrativeDao extends GenericDao<Narrative>{
 	
+	public NarrativeDao()
+	{
+		super();
+	}
 	public NarrativeDao(DataSource dataSource) {
 		
 		super(Narrative.class, dataSource);
 		
-		rowMapper = new NarrativeRowMapper(
-						new IncidentGenerator(){
-							public Incident getIncident(ResultSet rs)
-							{
-								Incident incident;
-								try {
-									incident = new IncidentDao(dataSource).get(rs.getInt("incident"));
-								} catch (NotFoundException nfe) {
-									logger.error("Database fault", nfe);
-					        		incident = null;
-								} catch (ReferentialIntegrityException rie) {
-									logger.error("Database fault", rie);
-					        		incident = null;
-								} catch (InternalServerException ise) {
-									logger.error("Database fault", ise);
-					        		incident = null;
-								} catch (SQLException sqle) {
-									logger.error("Database fault", sqle);
-					        		incident = null;
-								}
-		
-								return incident;
-							}
-						}
-					);
+		rowMapper = new NarrativeRowMapper(new DaoGenerator<Incident, IncidentDao>(dataSource, Incident.class, IncidentDao.class));
 	}
 	
 	public NarrativeDao(DataSource dataSource, Incident incident)
 	{
 		super(Narrative.class, dataSource);
-		
-		rowMapper = new NarrativeRowMapper(
-						new IncidentGenerator(){
-							public Incident getIncident(ResultSet rs)
-							{
-								return incident;
-							}
-						});
-	}
-	
-	private interface IncidentGenerator
-	{
-		public Incident getIncident(ResultSet rs) throws NotFoundException, ReferentialIntegrityException, InternalServerException, SQLException;
+		rowMapper = new NarrativeRowMapper(new ReferenceGenerator<Incident>(incident));
 	}
 	
 	private class NarrativeRowMapper implements RowMapper<Narrative>
 	{
-		private IncidentGenerator incidentGenerator;
+		Generator<Incident> incidentGenerator;
 		
-		public NarrativeRowMapper(IncidentGenerator incidentGenerator)
+		public NarrativeRowMapper(Generator<Incident> incidentGenerator)
 		{
 			this.incidentGenerator = incidentGenerator;
 		}
@@ -87,24 +55,15 @@ public class NarrativeDao extends AbstractDao<Narrative>{
         	try
         	{
         		id = rs.getInt("id");
-        		incident = incidentGenerator.getIncident(rs);
+        		incident = incidentGenerator.get(rs);
         		narrativePassage = rs.getString("narrative");
 	        	reporter = rs.getString("reporter");
 	        	narrative = new Narrative(id, incident, narrativePassage, reporter);
         	}
-        	catch(ReferentialIntegrityException rie)
-        	{
-        		logger.error("Database fault", rie);
-        		narrative = null;
-        	}
-        	catch(NotFoundException nfe)
-        	{
-        		logger.error("Database fault", nfe);
-        		narrative = null;
-        	}
-            catch(InternalServerException ise)
-        	{
-            	logger.error("Database fault", ise);
+        	catch(ReferentialIntegrityException |
+        		  NotFoundException |
+        		  InternalServerException e){
+            	logger.error("Database fault", e);
             	narrative = null;
         	}
         	

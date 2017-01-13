@@ -17,7 +17,7 @@ import hitstpa.model.Incident;
 import hitstpa.model.IncidentXSafetyConstraint;
 import hitstpa.model.SafetyConstraint;
 
-public class IncidentXSafetyConstraintDao extends AbstractDao <IncidentXSafetyConstraint>{
+public class IncidentXSafetyConstraintDao extends GenericDao <IncidentXSafetyConstraint>{
 
 	protected IncidentXSafetyConstraintDao(DataSource dataSource) {
 		super(IncidentXSafetyConstraint.class, dataSource);

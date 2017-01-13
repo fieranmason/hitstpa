@@ -14,7 +14,7 @@ import com.leverage.util.ReferentialIntegrityException;
 import hitstpa.model.Event;
 import hitstpa.model.EventSafetyConstraint;
 
-public class EventSafetyConstraintDao extends AbstractDao <EventSafetyConstraint>{
+public class EventSafetyConstraintDao extends GenericDao <EventSafetyConstraint>{
 
 	protected EventSafetyConstraintDao(DataSource dataSource) {
 		super(EventSafetyConstraint.class, dataSource);

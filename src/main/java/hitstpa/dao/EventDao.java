@@ -15,7 +15,7 @@ import hitstpa.model.Event;
 import hitstpa.model.IndividualAction;
 import hitstpa.model.Interaction;
 
-public class EventDao extends AbstractDao <Event>{
+public class EventDao extends GenericDao <Event>{
 
 	protected EventDao(DataSource dataSource) {
 		super(Event.class, dataSource);

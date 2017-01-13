@@ -13,6 +13,7 @@ public class Incident {
 	private Date endTime;
 	private String vendorProductModel;
 	private List<Narrative> narratives;
+	private List<SafetyConstraint> safetyConstraints;
 	
 	public Incident(){}
 	
@@ -95,5 +96,13 @@ public class Incident {
 
 	public void setNarratives(List<Narrative> narratives) {
 		this.narratives = narratives;
+	}
+
+	public List<SafetyConstraint> getSafetyConstraints() {
+		return safetyConstraints;
+	}
+
+	public void setSafetyConstraints(List<SafetyConstraint> safetyConstraints) {
+		this.safetyConstraints = safetyConstraints;
 	}
 }
