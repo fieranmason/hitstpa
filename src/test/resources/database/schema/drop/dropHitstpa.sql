@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS Narrative;
+DROP TABLE IF EXISTS IncidentXSafetyConstraint;
+DROP TABLE IF EXISTS Incident;
+DROP TABLE IF EXISTS SafetyConstraint;
+DROP TABLE IF EXISTS Sequence;
+DROP TABLE IF EXISTS EventSafetyConstraint;
+DROP TABLE IF EXISTS Event;
+DROP TABLE IF EXISTS IndividualAction;
+DROP TABLE IF EXISTS Interaction;
+DROP TABLE IF EXISTS EntitySafetyConstraint;
+DROP TABLE IF EXISTS EntityCouple;
+DROP TABLE IF EXISTS Entity;
+DROP TABLE IF EXISTS Stereotype;

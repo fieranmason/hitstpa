@@ -52,9 +52,9 @@
         <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.31</version> <!-- can't change this version until we fix our code to stop using the 3.0.11 glitches -->
+			<scope>runtime</scope>
 		</dependency>
-    	
+		
 		<!-- Spring Boot for webservice -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,8 +77,6 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Servlet Spec --><!-- Skipping this for now -->
-        
         <!-- Logging -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -94,6 +92,11 @@
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
     </dependencies>
 
@@ -115,6 +118,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>3.1</version>
+	            <configuration>
+	                <source>1.8</source>
+	                <target>1.8</target>
+	            </configuration>
+        	</plugin>
         </plugins>
     </build>
 
