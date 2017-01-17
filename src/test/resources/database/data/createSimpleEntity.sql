@@ -1,0 +1,1 @@
+INSERT INTO Entity (stereotype, name, description) VALUES(1, "Care Provider", "Care provider for patient");

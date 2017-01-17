@@ -1,11 +1,14 @@
 package hitstpa.model;
 
+import java.util.List;
+
 public class Entity {
 
 	protected Integer id;
 	protected Stereotype stereotype;
 	protected String name;
 	protected String description;
+	protected List<IndividualAction> individualActions;
 	
 	public Entity(){}
 	
@@ -46,5 +49,13 @@ public class Entity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<IndividualAction> getIndividualActions() {
+		return individualActions;
+	}
+
+	public void setIndividualActions(List<IndividualAction> individualActions) {
+		this.individualActions = individualActions;
 	}
 }

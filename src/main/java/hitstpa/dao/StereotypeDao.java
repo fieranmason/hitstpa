@@ -23,7 +23,7 @@ public class StereotypeDao extends GenericDao<Stereotype>{
     		public Stereotype mapRow(ResultSet rs, int rowNum) throws SQLException {
 	        	Integer id = rs.getInt("id");
 	        	String name = rs.getString("name");
-	            String description = rs.getString("desription");
+	            String description = rs.getString("description");
 	            return new Stereotype(id, name, description);
 	        }
 		};

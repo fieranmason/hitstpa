@@ -16,8 +16,7 @@ CREATE TABLE Stereotype
 (
 	id int NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
 	name varchar(50) NOT NULL,
-	description varchar(200),
-	fake int
+	description varchar(200)
 )ENGINE=INNODB;
 
 CREATE TABLE Entity
@@ -75,6 +74,8 @@ CREATE TABLE Event
 (
 	id int NOT NULL AUTO_INCREMENT, PRIMARY KEY(id),
 	individualAction int,
+	name varchar(50),
+	description varchar(200),
 	FOREIGN KEY IndividualActionFK(individualAction)
 		REFERENCES IndividualAction(id)
 		ON DELETE CASCADE,

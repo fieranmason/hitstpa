@@ -1,0 +1,1 @@
+INSERT INTO IndividualAction (ID, Entity) VALUES(1,1);

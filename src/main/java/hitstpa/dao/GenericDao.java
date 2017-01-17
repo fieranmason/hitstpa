@@ -19,7 +19,6 @@ public  class GenericDao<T> implements IDao<T>{
 	protected String list = "SELECT * FROM ";
 	protected String get1 = "SELECT * FROM ";
 	protected String get2 = " WHERE id=?";
-	protected String filter;
 	protected String get;
 	protected RowMapper<T> rowMapper;
 	
@@ -58,20 +57,26 @@ public  class GenericDao<T> implements IDao<T>{
 
 	@Override
 	public List<T> list() throws InternalServerException{
-		return checkForNullEntities(jdbcTemplate.query(list, rowMapper));
+		List<T> elements = jdbcTemplate.query(list, rowMapper);
+		return checkForNullElements( elements );
 	}
 	
 	public List<T> filterList(String column, Integer id) throws InternalServerException{
-		return checkForNullEntities(jdbcTemplate.query(filter, new Object[] {id}, rowMapper));
+		
+		String filter = " WHERE " + column + "=?";
+		String query = list + filter;
+		Object parameters[] = {id};
+		List<T> rawElements = jdbcTemplate.query(query, parameters, rowMapper);
+		return checkForNullElements(rawElements);
 	}
 	
-	protected List<T> checkForNullEntities(List<T> entities) throws InternalServerException
+	protected List<T> checkForNullElements(List<T> elements) throws InternalServerException
 	{
-		if(entities.contains(null))
+		if(elements.contains(null))
 		{
 			throw new InternalServerException("unreferenced element or child");
 		}
 		
-		return entities;
+		return elements;
 	}
 }

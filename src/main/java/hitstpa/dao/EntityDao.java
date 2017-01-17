@@ -2,6 +2,7 @@ package hitstpa.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -13,6 +14,7 @@ import com.leverage.util.NotFoundException;
 import com.leverage.util.ReferentialIntegrityException;
 
 import hitstpa.model.Entity;
+import hitstpa.model.IndividualAction;
 import hitstpa.model.Stereotype;
 
 @Repository
@@ -25,17 +27,22 @@ public class EntityDao extends GenericDao<Entity>{
 		rowMapper = new RowMapper<Entity>() {
     		@Override
     		public Entity mapRow(ResultSet rs, int rowNum) throws SQLException{
-	        	Integer id = rs.getInt("id");
 	        	
 	        	Entity entity;
-	        	Stereotype stereotype;
 	        	
 	        	try
 	        	{
-	        		stereotype = new StereotypeDao(dataSource).get(rs.getInt("stereotype"));
+	        		//native
+	        		Integer id = rs.getInt("id");
+	        		Stereotype stereotype = new StereotypeDao(dataSource).get(rs.getInt("stereotype"));
 	        		String name = rs.getString("name");
 		        	String description = rs.getString("description");
-		            entity = new Entity(id, stereotype, name, description);
+		        	entity = new Entity(id, stereotype, name, description);
+		        	IndividualActionDao individualActionDao = new IndividualActionDao(dataSource, entity);
+		        	
+		        	//reverse reference
+		        	List<IndividualAction> individualActions = individualActionDao.filterList("entity", id);
+		            entity.setIndividualActions(individualActions);
 	        	}
 	        	catch(ReferentialIntegrityException rie)
 	        	{

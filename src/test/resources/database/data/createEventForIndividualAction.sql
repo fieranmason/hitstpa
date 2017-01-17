@@ -1,0 +1,1 @@
+INSERT INTO Event (individualAction, name, description) values(1, "action foo", "how to bar" );
